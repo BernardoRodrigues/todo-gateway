@@ -16,7 +16,7 @@ const userRouter = Router()
             if (!areParametersValid(email, password)) {
                 throw new InvalidCredentialsError("Credentials cannot be empty", 400)
             }
-            const result = await instance.post(`${process.env.BASE_USER_URL}/login`, {email: email, password: password});
+            const result = await instance.post(`${process.env.TODO_USER_SERVICE_PATH}/service/user/login`, {email: email, password: password});
             return res.status(result.status).json(result.data)
         } catch (err) {
             console.error(err);
@@ -30,7 +30,7 @@ const userRouter = Router()
     .delete('/', async (req, res) => {
         try {
             const options = getAxiosAuthConfig(req.headers.authorization)
-            const result = await instance.delete(`${process.env.BASE_USER_URL}/`, options)
+            const result = await instance.delete(`${process.env.TODO_USER_SERVICE_PATH}/service/user/`, options)
             return res.status(result.status).json(result.data)
         } catch(err) {
             console.error(err);
@@ -49,7 +49,7 @@ const userRouter = Router()
             }
 
             console.log("User signup")
-            const result = await instance.post(`${process.env.BASE_USER_URL}/signup`, {email: email, password: password, firstName: firstName, lastName: lastName})
+            const result = await instance.post(`${process.env.TODO_USER_SERVICE_PATH}/service/user/signup`, {email: email, password: password, firstName: firstName, lastName: lastName})
             return res.status(result.status).json(result.data)
         } catch(err) {
             console.error(err)
@@ -63,7 +63,7 @@ const userRouter = Router()
     .get("/logout", async (req, res) => {
         try {
             const options = getAxiosAuthConfig(req.headers.authorization);
-            const result = await instance.get(`${process.env.BASE_USER_URL}/logout`, options)
+            const result = await instance.get(`${process.env.TODO_USER_SERVICE_PATH}/service/user/logout`, options)
             return res.status(result.status).json({message: "user logged out"})
         } catch(err) {
             if (err instanceof BaseError) {

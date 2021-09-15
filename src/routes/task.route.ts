@@ -16,7 +16,7 @@ const taskRouter = Router()
                 return res.status(400).json({message: "Parameters are not valid"})
             }
             const options = getAxiosAuthConfig(req.headers.authorization);
-            const result = await instance.post(`${process.env.BASE_TASK_URL}/subscribe`, {endpoint: endpoint, p256dh: p256dh, auth: auth}, options)
+            const result = await instance.post(`${process.env.TODO_TASK_SERVICE_PATH}/service/task/subscribe`, {endpoint: endpoint, p256dh: p256dh, auth: auth}, options)
             return res.status(result.status).json(result.data)
         } catch(err) {
             console.error(err)
@@ -33,7 +33,7 @@ const taskRouter = Router()
                 return res.status(400).json({message: "Parameters are not valid"})
             }
             const options = getAxiosAuthConfig(req.headers.authorization);
-            const result = await instance.post(`${process.env.BASE_TASK_URL}/unsusbscribe`, {endpoint: endpoint}, options)
+            const result = await instance.post(`${process.env.TODO_TASK_SERVICE_PATH}/service/task/unsusbscribe`, {endpoint: endpoint}, options)
             return res.status(result.status).json(result.data)
         } catch(err) {
             console.error(err)

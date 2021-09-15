@@ -1,13 +1,15 @@
 import { config } from 'dotenv';
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
-
-console.log(resolve(__dirname, '..', '..', 'environments', `${process.env.NODE_ENV}.env`))
-config(
-    {
-        path: resolve(__dirname, '..', '..', 'environments', `${process.env.NODE_ENV}.env`)
-    }
-)
+if (process.env.NODE_ENV !== 'production') {
+    
+    console.log(resolve(__dirname, '..', '..', 'environments', `${process.env.NODE_ENV}.env`))
+    config(
+        {
+            path: resolve(__dirname, '..', '..', 'environments', `${process.env.NODE_ENV}.env`)
+        }
+    )
+}
 import { json } from 'body-parser'
 import { createServer } from 'http'
 import express from 'express'
