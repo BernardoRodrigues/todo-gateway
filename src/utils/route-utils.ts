@@ -1,7 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 
 const getAxiosAuthConfig = (auth?: string): AxiosRequestConfig => {
-    console.log(auth)
     const options: AxiosRequestConfig = {
     }
     if (auth != null) {
