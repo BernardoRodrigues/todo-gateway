@@ -20,12 +20,12 @@ const todoRouter = Router()
     })
     .post("/", async (req, res) => {
         try {
-            const { startDate, endDate, title, priority } = req.body;
-            if (!areParametersValid(startDate, endDate, title, priority)) {
+            const { startDate, endDate, title, priority, isDone } = req.body;
+            if (!areParametersValid(startDate, endDate, title, priority, isDone)) {
                 return res.status(400).json({message: "Parameters are not valid"})
             }
             const options = getAxiosAuthConfig(req.headers.authorization)
-            const result = await instance.post(`${process.env.TODO_TODO_SERVICE_PATH}/service/todo/`, {startDate: startDate, endDate: endDate, title: title, priority: priority}, options)
+            const result = await instance.post(`${process.env.TODO_TODO_SERVICE_PATH}/service/todo/`, {startDate: startDate, endDate: endDate, title: title, priority: priority, isDone: isDone}, options)
             return res.status(result.status).json(result.data);
         } catch (err) {
             console.error(err)
@@ -34,9 +34,9 @@ const todoRouter = Router()
     })
     .put("/:id", async (req, res) => {
         try {
-            const { startDate, endDate, title, priority } = req.body;
+            const { startDate, endDate, title, priority, isDone } = req.body;
             const options = getAxiosAuthConfig(req.headers.authorization)
-            const result = await instance.put(`${process.env.TODO_TODO_SERVICE_PATH}/service/todo/${req.params.id}`, {startDate: startDate, endDate: endDate, title: title, priority: priority}, options)
+            const result = await instance.put(`${process.env.TODO_TODO_SERVICE_PATH}/service/todo/${req.params.id}`, {startDate: startDate, endDate: endDate, title: title, priority: priority, isDone: isDone}, options)
             return res.status(result.status).json(result.data);
         } catch (err) {
             console.error(err)
