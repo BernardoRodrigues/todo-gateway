@@ -45,12 +45,12 @@ const todoRouter = Router()
     })
     .put("/:id/status", async (req, res) => {
         try {
-            const { is_done } = req.body;
-            if (!areParametersValid(is_done)) {
+            const { status } = req.body;
+            if (!areParametersValid(status)) {
                 return res.status(400).json({message: "is_done is not valid"})
             }
             const options = getAxiosAuthConfig(req.headers.authorization)
-            const result = await instance.put(`${process.env.TODO_TODO_SERVICE_PATH}/service/todo/${req.params.id}/status`, {isDone: is_done}, options)
+            const result = await instance.put(`${process.env.TODO_TODO_SERVICE_PATH}/service/todo/${req.params.id}/status`, {status: status}, options)
             return res.status(result.status).json(result.data);
         } catch (err) {
             console.error(err)
@@ -59,12 +59,8 @@ const todoRouter = Router()
     })
     .put("/:id/cancel", async (req, res) => {
         try {
-            const { is_cancelled } = req.body;
-            if (!areParametersValid(is_cancelled)) {
-                return res.status(400).json({message: "is_cancelled is not valid"})
-            }
             const options = getAxiosAuthConfig(req.headers.authorization)
-            const result = await instance.put(`${process.env.TODO_TODO_SERVICE_PATH}/service/todo/${req.params.id}/cancel`, {isCancelled: is_cancelled}, options)
+            const result = await instance.put(`${process.env.TODO_TODO_SERVICE_PATH}/service/todo/${req.params.id}/cancel`, null, options)
             return res.status(result.status).json(result.data);
         } catch (err) {
             console.error(err)
